@@ -69,7 +69,7 @@ class Blockchain:
     
     def add_transaction(self, sender, receiver, amount):
         self.transactions.append({'sender': sender,
-                                  'receiver': receiver
+                                  'receiver': receiver,
                                   'amount': amount})
         previous_block = self.get_previous_hash()
         return previous_block['index'] + 1
@@ -152,14 +152,14 @@ def add_transaction():
 
 # Connecting new nodes
 @app.route('/connect_node', methods = ['POST'])
-@def connect_node():
+def connect_node():
     json = requests.get_json()
     nodes = json.get('nodes')
     if nodes is None:
         return 'No node', 400
     for node in nodes:
         blockchain.add_node(node)
-    response = {'message': 'All the nodes are now connected. The hadcoin Blockchain now contains the nodes'', 'total_notes': list(transaction.nodes)}
+    response = {'message': 'All the nodes are now connected. The hadcoin Blockchain now contains the nodes', 'total_nodes': list(transaction.nodes)}
     
     return jsonify(response), 201
 
